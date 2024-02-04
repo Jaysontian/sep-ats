@@ -11,7 +11,7 @@ export function CreatePost() {
   const [content, setContent] = useState("");
   const user = useUser();
 
-  if (!user) return <div>Not logged in...</div>
+  if (!user.user) return <div>Not logged in...</div>
 
   const createPost = api.post.create.useMutation({
     onSuccess: () => {
@@ -26,8 +26,8 @@ export function CreatePost() {
         e.preventDefault();
         createPost.mutate({
             content: content,
-            authorId: user.user?.id as string,
-            authorName: user.user?.fullName as string,
+            authorId: user.user.id,
+            authorName: user.user.fullName!,
         });
       }}
       className="flex flex-col gap-2"

@@ -43,7 +43,7 @@ async function CrudShowcase() {
       )}
 
       <div className='bg-red w-full'>
-        {[...allPosts]?.map((post : any)=>(
+        {[...allPosts]?.map((post)=>(
           <div key={post.id} className='flex justify-between'>
             <p>{post.content}</p>
             <p>{post.authorName}</p>
