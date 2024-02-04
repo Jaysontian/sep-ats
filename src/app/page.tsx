@@ -8,7 +8,7 @@ import { api } from "~/trpc/server";
 
 export default async function Home() {
   noStore();
-  const hello = await api.post.hello.query({ text: "from tRPC" });
+  const hello = await api.post.hello.query({ text: "SEP ATS App" });
 
 
   return (
@@ -33,17 +33,21 @@ async function CrudShowcase() {
   const latestPost = await api.post.getLatest.query();
   const allPosts = await api.post.getAll.query();
 
+
   return (
-    <div className="w-full max-w-xs">
+    <div className="w-half w-1/2">
       {latestPost ? (
-        <p className="truncate">Your most recent post: {latestPost.content}</p>
+        <p className="truncate">Most recent post: {latestPost.content}</p>
       ) : (
         <p>You have no posts yet.</p>
       )}
 
-      <div>
-        {allPosts?.map((post)=>(
-          <div key={post.id}>{post.content}</div>
+      <div className='bg-red w-full'>
+        {[...allPosts]?.map((post : any)=>(
+          <div key={post.id} className='flex justify-between'>
+            <p>{post.content}</p>
+            <p>{post.authorName}</p>
+          </div>
         ))}
       </div>
 

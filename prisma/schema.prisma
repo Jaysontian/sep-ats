@@ -19,6 +19,7 @@ model Post {
 
     content   String @db.VarChar(255)
     authorId  String
+    authorName String
 
     @@index([authorId]) // index this based on author ID
 }
