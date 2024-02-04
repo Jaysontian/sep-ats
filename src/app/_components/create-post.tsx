@@ -7,11 +7,10 @@ import { useState } from "react";
 import { api } from "~/trpc/react";
 
 export function CreatePost() {
+  
   const router = useRouter();
   const [content, setContent] = useState("");
-  const user = useUser();
-
-  if (!user.user) return <div>Not logged in...</div>
+  const { user, isLoaded } = useUser();
 
   const createPost = api.post.create.useMutation({
     onSuccess: () => {
@@ -20,14 +19,17 @@ export function CreatePost() {
     },
   });
 
+
+  if (!isLoaded || !user) return (<div>Loading...</div>)
+
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
         createPost.mutate({
             content: content,
-            authorId: user.user.id,
-            authorName: user.user.fullName!,
+            authorId: user.id,
+            authorName: user.fullName!,
         });
       }}
       className="flex flex-col gap-2"

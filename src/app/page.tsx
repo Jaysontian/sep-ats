@@ -1,5 +1,4 @@
 import { unstable_noStore as noStore } from "next/cache";
-import Link from "next/link";
 
 import { UserButton } from "@clerk/nextjs";
 
@@ -32,7 +31,6 @@ export default async function Home() {
 async function CrudShowcase() {
   const latestPost = await api.post.getLatest.query();
   const allPosts = await api.post.getAll.query();
-
 
   return (
     <div className="w-half w-1/2">
