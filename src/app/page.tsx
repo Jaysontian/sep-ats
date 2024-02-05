@@ -3,7 +3,9 @@ import { unstable_noStore as noStore } from "next/cache";
 import { UserButton } from "@clerk/nextjs";
 
 import { CreatePost } from "~/app/_components/create-post";
+import { Admin } from "~/app/_components/admin"
 import { api } from "~/trpc/server";
+
 
 export default async function Home() {
   noStore();
@@ -23,6 +25,9 @@ export default async function Home() {
         </div>
 
         <CrudShowcase />
+
+        <Admin/>
+        
       </div>
     </main>
   );
@@ -31,16 +36,17 @@ export default async function Home() {
 async function CrudShowcase() {
   const latestPost = await api.post.getLatest.query();
   const allPosts = await api.post.getAll.query();
+  const allApps = await api.candidate.getAllApps.query();
 
   return (
     <div className="w-half w-1/2">
       {latestPost ? (
-        <p className="truncate">Most recent post: {latestPost.content}</p>
+        <p className="truncate">Most recent update: {latestPost.content}</p>
       ) : (
         <p>You have no posts yet.</p>
       )}
 
-      <div className='bg-red w-full'>
+      <div className='bg-red w-full my-6'>
         {[...allPosts]?.map((post)=>(
           <div key={post.id} className='flex justify-between'>
             <p>{post.content}</p>
@@ -50,6 +56,17 @@ async function CrudShowcase() {
       </div>
 
       <CreatePost />
+
+      <div>
+        <h2 className='text-xl font-bold my-8'>Candidates</h2>
+        {allApps.map((app) => (
+          <div key={app.uid} className='flex justify-between bg-white/20 py-2 px-4 rounded my-2'>
+            <p>{app.profile?.name}</p>
+            <p>{app.profile?.email}</p>
+            <p>{app.uid}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

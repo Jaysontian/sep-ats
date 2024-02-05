@@ -26,6 +26,7 @@ export const postRouter = createTRPCRouter({
           content: input.content,
           authorId: input.authorId,
           authorName: input.authorName,
+          applicant: "505956202",
         },
       });
     }),

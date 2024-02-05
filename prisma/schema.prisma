@@ -9,18 +9,45 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["driverAdapters"]
+  previewFeatures = ["driverAdapters", "relationJoins"]
 }
 
 model Post {
-    id        Int      @id @default(autoincrement())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  authorId  String
+  authorName String
 
-    content   String @db.VarChar(255)
-    authorId  String
-    authorName String
+  applicant String    // UID of the applicant
+  content   String @db.VarChar(255)
 
-    @@index([authorId]) // index this based on author ID
+  @@index([authorId]) // index this based on author ID
 }
 
+
+
+model Candidate {
+  uid       String         @id @unique // identify candidate by UID
+
+  profile   CandidateProfile?
+  app       CandidateApp?
+  @@index([uid])
+}
+
+model CandidateProfile {
+  id   String     @id @default(cuid()) 
+  name  String  @db.VarChar(255)
+  email String
+
+  candidate Candidate @relation(fields: [id], references: [uid])
+  @@index([id])
+}
+
+model CandidateApp {
+  id    String     @id @default(cuid())
+  year  String  
+
+  candidate Candidate @relation(fields: [id], references: [uid])
+  @@index([id])
+}
