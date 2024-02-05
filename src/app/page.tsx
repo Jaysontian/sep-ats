@@ -58,7 +58,7 @@ async function CrudShowcase() {
       <CreatePost />
 
       <div>
-        <h2 className='text-xl font-bold my-8'>Candidates</h2>
+        <h2>Candidates</h2>
         {allApps.map((app) => (
           <div key={app.uid} className='flex justify-between bg-white/20 py-2 px-4 rounded my-2'>
             <p>{app.profile?.name}</p>
