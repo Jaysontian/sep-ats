@@ -82,21 +82,21 @@ export function DataTable<TData, TValue>({
         <TableBody>
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
-              <TableRow
-                key={row.id}
-                data-state={row.getIsSelected() && "selected"}
-              >
-                {/* Per Row declarations */}
+              <NoteDrawer key={row.id} name={row.getValue("name")}>
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                >
+                  {/* Per Row declarations */}
 
-                {row.getVisibleCells().map((cell) => (
-                  <NoteDrawer key={cell.id} name={row.id}>
-                    <TableCell>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
-                  </NoteDrawer>
-                ))}
+                  {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </TableCell>
+                  ))}
 
-              </TableRow>
+                </TableRow>
+              </NoteDrawer>
             ))
           ) : (
             <TableRow>
