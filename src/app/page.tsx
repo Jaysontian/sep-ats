@@ -4,7 +4,9 @@ import { UserButton } from "@clerk/nextjs";
 
 import { Admin } from "~/components/admin"
 import { api } from "~/trpc/server";
+import Image from "next/image";
 
+import logo from "src/styles/logo.png"
 
 import RecentScroller from "~/components/recentScroller/recentScroller";
 import CandidateList from "~/components/candidateList/candidateList";
@@ -15,31 +17,16 @@ export default async function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-black/95 text-white">
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-
+      <nav className="w-full p-4 flex justify-between">
+        <Image src={logo} alt="SEP Logo" width={55} height={35}/>
         <UserButton afterSignOutUrl="/"/>
-
-        <div className="flex flex-col items-center gap-2">
-          <p className="text-2xl text-white">
-            {hello ? hello.greeting : "Loading tRPC query..."}
-          </p>
-        </div>
-
-        <CrudShowcase />
-
+      </nav>
+      <div className="w-full flex flex-col px-4">
+        <RecentScroller />
+        <CandidateList />
         <Admin/>
         
       </div>
     </main>
-  );
-}
-
-async function CrudShowcase() {
-
-  return (
-    <div className="w-2/3">
-        <RecentScroller />
-        <CandidateList />
-    </div>
   );
 }

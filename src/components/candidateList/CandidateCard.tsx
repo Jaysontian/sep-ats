@@ -40,7 +40,7 @@ export default function CandidateCard(props: ColumnData) {
       },
     });
     
-    if (!isLoaded || !user) return (<div>Not authenticated. Please check internet.</div>)
+    if (!isLoaded || !user) return null;
 
     const postComment = () => {
       if (content == "" || content == null){alert("Empty input"); return;}
@@ -56,7 +56,7 @@ export default function CandidateCard(props: ColumnData) {
   return (
     <Drawer shouldScaleBackground open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>{props.children}</DrawerTrigger>
-      <DrawerContent className="mx-4 self-center bg-white">
+      <DrawerContent className="mx-4 self-center bg-white outline-none">
         <div className="bg-red m-auto max-w-[500px]">
           <DrawerHeader>
             <DrawerTitle>{props.name}</DrawerTitle>

@@ -67,6 +67,9 @@
 }
 
 @layer base {
+  html, body {
+    margin:0px;
+  }
   * {
     @apply border-border;
   }
@@ -74,6 +77,6 @@
     @apply bg-background text-foreground;
   }
   h2 {
-    @apply text-2xl font-semibold my-4
+    @apply text-xl font-semibold my-4
   }
 }

@@ -2,7 +2,6 @@
 import React from 'react'
 import { api } from '~/trpc/server'
 import { currentUser } from "@clerk/nextjs"
-import CandidateCard from "~/components/candidateList/candidateCard"
 
 import { Card, CardContent } from "~/components/ui/card"
 import {
@@ -12,13 +11,14 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "~/components/ui/carousel"
+import CandidateCard from '../candidateList/candidateCard'
 
 // type Props = {}
 
 export default async function RecentScroller(/*{}: Props*/) {
 
     const user = await currentUser();
-    if (!user) return <div>Not logged in</div>; 
+    if (!user) return null; 
     const data = await api.post.getRecentByID.query({ID: user.id});
 
     // This code creates an array of unique applicant posts sorted by latest update time
@@ -36,22 +36,22 @@ export default async function RecentScroller(/*{}: Props*/) {
 
     return (
     <>
-        <h2>Chat History</h2>
+        <h2>Recents</h2>
         <Carousel
             opts={{
                 align: "start",
             }}
-            className="w-full"
+            className="w-vw overflow-x-visible"
         >
             <CarouselContent>
                 {uniqdata.map((post, index) => (
-                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                    <div className="p-1">
+                <CarouselItem key={index} className=" basis-2/5 md:basis-1/2 lg:basis-1/5">
+                    <div className="pr-0.2">
                         <CandidateCard name="John" candidateID={post.applicant}>
                             <Card className="bg-zinc-700/50 text-white border-zinc-600 cursor-pointer hover:border-zinc-400">
-                                <CardContent className="flex flex-col items-center justify-center py-4 px-2">
+                                <CardContent className="flex flex-col items-left justify-center py-4 px-2">
                                     <span className="text-sm font-semibold">{post.applicant}</span>
-                                    <span className="text-sm text-zinc-400/80 py-1 truncate">{post.content}</span>
+                                    <span className="text-xs text-zinc-400/80 py-1 truncate">{post.content}</span>
                                 </CardContent>
                             </Card>
                         </CandidateCard>
@@ -59,8 +59,8 @@ export default async function RecentScroller(/*{}: Props*/) {
                 </CarouselItem>
                 ))}
             </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
+            <CarouselPrevious className="hidden" />
+            <CarouselNext className="hidden"/>
         </Carousel>
     </>
     )

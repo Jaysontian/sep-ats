@@ -49,7 +49,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <>
-    <div className="flex items-center py-4 justify-between">
+    <div className="flex flex-col justify-between pb-4">
         <h2>Candidates</h2>
         <Input
           placeholder="Filter by name..."
@@ -57,7 +57,7 @@ export function DataTable<TData, TValue>({
           onChange={(event) =>
             table.getColumn("name")?.setFilterValue(event.target.value)
           }
-          className="max-w-xs"
+          className="max-w-xs border-zinc-700 bg-zinc-700/20"
         />
       </div>
     <div className="rounded-sm border">
