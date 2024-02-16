@@ -72,7 +72,7 @@ export default function CandidateCard(props: ColumnData) {
               <Button>Criteria 3</Button>
             </div>
             <DrawerClose className="my-2">
-              <button>Cancel</button>
+              <button>Close</button>
             </DrawerClose>
           </DrawerFooter>
         </div>
