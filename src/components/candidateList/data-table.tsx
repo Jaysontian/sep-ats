@@ -9,7 +9,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table"
 
-import CandidateCard from '../candidateList/candidateCard'
+import CandidateBox from "./candidateBox"
 
 import {
   Table,
@@ -83,7 +83,7 @@ export function DataTable<TData, TValue>({
         <TableBody>
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
-              <CandidateCard key={row.id} name={row.getValue("name")} candidateID={row.getValue("uid")}>
+              <CandidateBox key={row.id} name={row.getValue("name")} candidateID={row.getValue("uid")}>
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
@@ -94,7 +94,7 @@ export function DataTable<TData, TValue>({
                       </TableCell>
                   ))}
                 </TableRow>
-              </CandidateCard>
+              </CandidateBox>
             ))
           ) : (
             <TableRow>

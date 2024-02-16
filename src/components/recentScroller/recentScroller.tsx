@@ -11,7 +11,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "~/components/ui/carousel"
-import CandidateCard from "~/components/candidateList/candidateCard"
+
+import CandidateBox from '../candidateList/candidateBox'
 
 // type Props = {}
 
@@ -47,14 +48,14 @@ export default async function RecentScroller(/*{}: Props*/) {
                 {uniqdata.map((post, index) => (
                 <CarouselItem key={index} className=" basis-2/5 md:basis-1/2 lg:basis-1/5">
                     <div className="pr-0.2">
-                        <CandidateCard name="John" candidateID={post.applicant}>
+                        <CandidateBox name="John" candidateID={post.applicant}>
                             <Card className="bg-zinc-700/50 text-white border-zinc-600 cursor-pointer hover:border-zinc-400">
                                 <CardContent className="flex flex-col items-left justify-center py-4 px-2">
                                     <span className="text-sm font-semibold">{post.applicant}</span>
                                     <span className="text-xs text-zinc-400/80 py-1 truncate">{post.content}</span>
                                 </CardContent>
                             </Card>
-                        </CandidateCard>
+                        </CandidateBox>
                     </div>
                 </CarouselItem>
                 ))}

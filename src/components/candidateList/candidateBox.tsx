@@ -23,7 +23,7 @@ type ColumnData = {
   candidateID: string;
 };
 
-export default function CandidateCard(props: ColumnData) {
+export default function CandidateBox(props: ColumnData) {
     const router = useRouter();
     const [content, setContent] = useState("");
     const {user, isLoaded} = useUser();
