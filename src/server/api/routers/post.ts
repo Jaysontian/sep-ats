@@ -16,6 +16,7 @@ export const postRouter = createTRPCRouter({
       content: z.string().min(1),
       authorId: z.string().min(1),
       authorName: z.string().min(1),
+      applicant: z.string().length(9)
     }))
     .mutation(async ({ ctx, input }) => {
       // simulate a slow db call
@@ -26,7 +27,7 @@ export const postRouter = createTRPCRouter({
           content: input.content,
           authorId: input.authorId,
           authorName: input.authorName,
-          applicant: "505956202",
+          applicant: input.applicant,
         },
       });
     }),
@@ -38,5 +39,21 @@ export const postRouter = createTRPCRouter({
   }),
   getAll: publicProcedure.query(({ ctx }) => {
     return ctx.db.post.findMany();
+  }),
+
+  getRecentByID: publicProcedure
+    .input(z.object({ID: z.string()}))
+    .query(({ ctx, input }) => {
+
+      return ctx.db.post.findMany({
+        orderBy:[{
+          createdAt:"desc"
+        }],
+        where: {
+          authorId:{
+            equals: input.ID
+          }
+        }
+      });
   }),
 });

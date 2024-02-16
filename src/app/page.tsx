@@ -2,16 +2,15 @@ import { unstable_noStore as noStore } from "next/cache";
 
 import { UserButton } from "@clerk/nextjs";
 
-import { CreatePost } from "~/components/create-post";
 import { Admin } from "~/components/admin"
 import { api } from "~/trpc/server";
 
 import CandidateList from "~/components/candidateList/candidateList";
+import RecentScroller from "~/components/recentScroller/recentScroller";
 
 export default async function Home() {
   noStore();
   const hello = await api.post.hello.query({ text: "SEP ATS App" });
-
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-black/95 text-white">
@@ -35,32 +34,11 @@ export default async function Home() {
 }
 
 async function CrudShowcase() {
-  const latestPost = await api.post.getLatest.query();
-  const allPosts = await api.post.getAll.query();
 
   return (
     <div className="w-2/3">
-      {latestPost ? (
-        <p className="truncate">Most recent update: {latestPost.content}</p>
-      ) : (
-        <p>You have no posts yet.</p>
-      )}
-
-      <div className='bg-red w-full my-6'>
-        {[...allPosts]?.map((post)=>(
-          <div key={post.id} className='flex justify-between'>
-            <p>{post.content}</p>
-            <p>{post.authorName}</p>
-          </div>
-        ))}
-      </div>
-
-      <CreatePost />
-
-      <div>
-        <h2>Candidates</h2>
+        <RecentScroller />
         <CandidateList />
-      </div>
     </div>
   );
 }

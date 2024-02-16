@@ -39,7 +39,6 @@ model CandidateProfile {
   id   String     @id @default(cuid()) 
   name  String  @db.VarChar(255)
   email String
-
   candidate Candidate @relation(fields: [id], references: [uid])
   @@index([id])
 }

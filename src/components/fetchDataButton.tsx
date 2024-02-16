@@ -2,7 +2,7 @@
 import { api } from "~/trpc/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-
+import { Button } from "./ui/button";
 
 export default function FetchDataButton(){
     const router = useRouter();
@@ -19,12 +19,12 @@ export default function FetchDataButton(){
 
     return(
         <>
-            <button onClick={() => {
+            <Button onClick={() => {
                 setLoading(true);
                 fetchNewApps.mutate();
             }}>
                 {loading ? "Fetching..." : "Fetch New Data"}
-            </button>
+            </Button>
             <p className='py-4'>{msg}</p>
         </>
     )

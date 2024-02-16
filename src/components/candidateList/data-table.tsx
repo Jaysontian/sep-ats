@@ -9,7 +9,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table"
 
-import NoteDrawer from "./noteDrawer"
+import CandidateCard from "./candidateCard"
 
 import {
   Table,
@@ -22,6 +22,7 @@ import {
 
 import { Input } from "../ui/input"
 import React from "react"
+import { Button } from "../ui/button"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -49,7 +50,7 @@ export function DataTable<TData, TValue>({
   return (
     <>
     <div className="flex items-center py-4 justify-between">
-        <h2 className="font-semibold text-xl">Candidates</h2>
+        <h2>Candidates</h2>
         <Input
           placeholder="Filter by name..."
           value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
@@ -82,21 +83,18 @@ export function DataTable<TData, TValue>({
         <TableBody>
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
-              <NoteDrawer key={row.id} name={row.getValue("name")}>
+              <CandidateCard key={row.id} name={row.getValue("name")} candidateID={row.getValue("uid")}>
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                 >
-                  {/* Per Row declarations */}
-
                   {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                       </TableCell>
                   ))}
-
                 </TableRow>
-              </NoteDrawer>
+              </CandidateCard>
             ))
           ) : (
             <TableRow>
