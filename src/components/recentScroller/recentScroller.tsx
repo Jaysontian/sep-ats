@@ -11,7 +11,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "~/components/ui/carousel"
-import CandidateCard from '../candidateList/candidateCard'
+import CandidateCard from "~/components/candidateList/candidateCard"
 
 // type Props = {}
 
