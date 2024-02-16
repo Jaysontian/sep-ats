@@ -22,7 +22,8 @@ import {
 import { Input } from "../ui/input"
 import React from "react"
 import { Button } from "../ui/button"
-import CandidateCard from "../candidateList/CandidateCard"
+
+import CandidateCard from "~/components/candidateList/CandidateCard"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]

@@ -5,7 +5,7 @@ import { UserButton } from "@clerk/nextjs";
 import { Admin } from "~/components/admin"
 import { api } from "~/trpc/server";
 
-import CandidateList from "~/components/candidateList/candidateList";
+import CandidateList from "~/components/candidateList/CandidateList";
 import RecentScroller from "~/components/recentScroller/recentScroller";
 
 export default async function Home() {

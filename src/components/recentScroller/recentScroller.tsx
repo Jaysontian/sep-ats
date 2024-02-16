@@ -2,7 +2,7 @@
 import React from 'react'
 import { api } from '~/trpc/server'
 import { currentUser } from "@clerk/nextjs"
-import CandidateCard from "../candidateList/CandidateCard"
+import CandidateCard from "~/components/candidateList/CandidateCard"
 
 import { Card, CardContent } from "~/components/ui/card"
 import {
@@ -13,9 +13,9 @@ import {
   CarouselPrevious,
 } from "~/components/ui/carousel"
 
-type Props = {}
+// type Props = {}
 
-export default async function RecentScroller({}: Props) {
+export default async function RecentScroller(/*{}: Props*/) {
 
     const user = await currentUser();
     if (!user) return <div>Not logged in</div>; 
