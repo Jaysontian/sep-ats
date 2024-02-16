@@ -9,6 +9,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table"
 
+import CandidateCard from '../candidateList/candidateCard'
 
 import {
   Table,
@@ -22,8 +23,6 @@ import {
 import { Input } from "../ui/input"
 import React from "react"
 import { Button } from "../ui/button"
-
-import CandidateCard from "~/components/candidateList/CandidateCard"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]

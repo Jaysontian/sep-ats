@@ -2,7 +2,7 @@
 import React from 'react'
 import { api } from '~/trpc/server'
 import { currentUser } from "@clerk/nextjs"
-import CandidateCard from "~/components/candidateList/CandidateCard"
+import CandidateCard from "~/components/candidateList/candidateCard"
 
 import { Card, CardContent } from "~/components/ui/card"
 import {
