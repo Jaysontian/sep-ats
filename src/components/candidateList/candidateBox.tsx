@@ -65,7 +65,7 @@ export default function CandidateBox(props: ColumnData) {
             </DrawerDescription>
           </DrawerHeader>
           <DrawerFooter>
-            <Textarea value={content} onChange={e => setContent(e.target.value)}>{content}</Textarea>
+            <Textarea className="text-[16px]" value={content} onChange={e => setContent(e.target.value)}>{content}</Textarea>
             <div className="flex justify-between gap-2">
               <Button onClick={()=>{postComment()}}>Submit</Button>
               <Button>Criteria 2</Button>
