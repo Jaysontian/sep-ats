@@ -19,10 +19,12 @@ model Post {
   authorId  String
   authorName String
 
-  applicant String    // UID of the applicant
+  applicant_id String    // UID of the applicant
+  applicant Candidate @relation(fields: [applicant_id], references: [uid])
+
   content   String @db.VarChar(255)
 
-  @@index([authorId]) // index this based on author ID
+  @@index([applicant_id]) // index this based on applicant ID
 }
 
 
@@ -32,6 +34,7 @@ model Candidate {
 
   profile   CandidateProfile?
   app       CandidateApp?
+  posts     Post[]
   @@index([uid])
 }
 
@@ -49,4 +52,8 @@ model CandidateApp {
 
   candidate Candidate @relation(fields: [id], references: [uid])
   @@index([id])
+}
+
+generator zod {
+  provider = "prisma-zod-generator"
 }

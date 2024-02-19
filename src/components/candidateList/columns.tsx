@@ -28,5 +28,6 @@ export const columns: ColumnDef<Payment>[] = [
     id: "uid",
     accessorKey: "profile.id",
     header: "UID",
+    enableHiding: true,
   },
 ]

@@ -17,6 +17,8 @@ import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { api } from "~/trpc/react";
 
+import { ThumbsDown, ThumbsUp } from "lucide-react";
+
 type ColumnData = {
   children: ReactNode;
   name: string;
@@ -56,20 +58,20 @@ export default function CandidateBox(props: ColumnData) {
   return (
     <Drawer shouldScaleBackground open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>{props.children}</DrawerTrigger>
-      <DrawerContent className="mx-4 self-center bg-white outline-none">
-        <div className="bg-red m-auto max-w-[500px]">
-          <DrawerHeader>
-            <DrawerTitle>{props.name}</DrawerTitle>
-            <DrawerDescription>
+      <DrawerContent className="sm:mx-0 md:mx-12 bg-white outline-none">
+        <div className="w-full md:w-2/5 mx-auto">
+          <DrawerHeader className="pb-0">
+            <DrawerTitle className="my-1">{props.name}</DrawerTitle>
+            <DrawerDescription className="text-[14px]">
               Submit a comment about this candidate.
             </DrawerDescription>
           </DrawerHeader>
-          <DrawerFooter>
-            <Textarea className="text-[16px]" value={content} onChange={e => setContent(e.target.value)}>{content}</Textarea>
-            <div className="flex justify-between gap-2">
-              <Button onClick={()=>{postComment()}}>Submit</Button>
-              <Button>Criteria 2</Button>
-              <Button>Criteria 3</Button>
+          <DrawerFooter className="pt-0">
+            <Textarea className="text-[16px] my-4 h-48" value={content} onChange={e => setContent(e.target.value)}>{content}</Textarea>
+            <div className="flex gap-2 w-full justify-between">
+              <Button className="bg-blue-500 text-white hover:bg-blue-600 w-3/4" onClick={()=>{postComment()}}>Submit</Button>
+              <Button disabled><ThumbsUp size={16} /></Button>
+              <Button disabled><ThumbsDown size={16} /></Button>
             </div>
             <DrawerClose className="my-2">
               <button>Close</button>

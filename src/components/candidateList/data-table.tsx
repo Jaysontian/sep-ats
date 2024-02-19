@@ -45,6 +45,9 @@ export function DataTable<TData, TValue>({
     state: {
       columnFilters,
     },
+    initialState: {
+      columnVisibility: { "uid": false },
+    },
   });
 
   return (
@@ -52,19 +55,19 @@ export function DataTable<TData, TValue>({
     <div className="flex flex-col justify-between pb-4">
         <h2>Candidates</h2>
         <Input
-          placeholder="Filter by name..."
+          placeholder="Search"
           value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("name")?.setFilterValue(event.target.value)
           }
-          className="max-w-xs border-zinc-700 bg-zinc-700/20"
+          className="max-w-xs border-zinc-700/20 bg-zinc-700/20 active:border-zinc-700/50"
         />
       </div>
-    <div className="rounded-sm border">
+    <div className="rounded-md bg-zinc-700/20 border border-zinc-700/30">
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
+            <TableRow key={headerGroup.id} className="border-b-zinc-700/50 hover:bg-inherit">
               {headerGroup.headers.map((header) => {
                 return (
                   <TableHead key={header.id}>
@@ -77,28 +80,33 @@ export function DataTable<TData, TValue>({
                   </TableHead>
                 )
               })}
+              <TableHead></TableHead>
             </TableRow>
           ))}
         </TableHeader>
         <TableBody>
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
-              <CandidateBox key={row.id} name={row.getValue("name")} candidateID={row.getValue("uid")}>
+              
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  className="border-none text-left"
                 >
                   {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                       </TableCell>
                   ))}
+                  <CandidateBox key={row.id} name={row.getValue("name")} candidateID={row.getValue("uid")}>
+                    <Button className="my-1.5 bg-blue-500 border-blue-400 border hover:bg-blue-600">Comment</Button>
+                  </CandidateBox>
+                  {/* <Button className="m-2">Add</Button> */}
                 </TableRow>
-              </CandidateBox>
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
+              <TableCell colSpan={columns.length} className="text-left">
                 No results.
               </TableCell>
             </TableRow>

@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 export const postRouter = createTRPCRouter({
@@ -16,7 +17,7 @@ export const postRouter = createTRPCRouter({
       content: z.string().min(1),
       authorId: z.string().min(1),
       authorName: z.string().min(1),
-      applicant: z.string().length(9)
+      applicant: z.string().length(9),
     }))
     .mutation(async ({ ctx, input }) => {
       // simulate a slow db call
@@ -27,7 +28,7 @@ export const postRouter = createTRPCRouter({
           content: input.content,
           authorId: input.authorId,
           authorName: input.authorName,
-          applicant: input.applicant,
+          applicant_id: input.applicant,
         },
       });
     }),
@@ -49,6 +50,13 @@ export const postRouter = createTRPCRouter({
         orderBy:[{
           createdAt:"desc"
         }],
+        include: {
+          applicant: {
+            include: {
+              profile: true,
+            }
+          },
+        },
         where: {
           authorId:{
             equals: input.ID
