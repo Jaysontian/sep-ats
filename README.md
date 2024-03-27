@@ -1,6 +1,6 @@
 # Sigma Eta Pi's ATS 🪽
 
-This application tracking system (ATS) is used for SEP's internal use for its recruitment process. The tech stack composes of:
+This application tracking system (ATS) is used for SEP's internal use for its recruitment process and the source code is meant to be completely open source. Feel free to modify and use as you see fit given credit to this original source. The tech stack composes of:
 - TypeScript
 - Prisma
 - ShadCN
