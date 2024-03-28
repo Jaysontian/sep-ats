@@ -44,13 +44,14 @@ export default function CandidateBox(props: ColumnData) {
     
     if (!isLoaded || !user) return null;
 
-    const postComment = () => {
+    const postComment = (vote : number) => {
       if (content == "" || content == null){alert("Empty input"); return;}
       createPost.mutate({
           content: content,
           authorId: user.id,
           authorName: user.fullName!,
           applicant: props.candidateID,
+          vote: vote,
       });
     }
 
@@ -69,9 +70,9 @@ export default function CandidateBox(props: ColumnData) {
           <DrawerFooter className="pt-0">
             <Textarea className="text-[16px] my-4 h-48" value={content} onChange={e => setContent(e.target.value)}>{content}</Textarea>
             <div className="flex gap-2 w-full justify-between">
-              <Button className="bg-blue-500 text-white hover:bg-blue-600 w-3/4" onClick={()=>{postComment()}}>Submit</Button>
-              <Button disabled><ThumbsUp size={16} /></Button>
-              <Button disabled><ThumbsDown size={16} /></Button>
+              <Button className="bg-red-500 text-white hover:bg-red-600 w-3/4" onClick={()=>{postComment(-1)}}><ThumbsDown size={16} /></Button>
+              <Button className="bg-blue-500 text-white hover:bg-blue-600 w-3/4" onClick={()=>{postComment(0)}}>Submit</Button>
+              <Button className="bg-green-500 text-white hover:bg-green-600 w-3/4" onClick={()=>{postComment(1)}}><ThumbsUp size={16} /></Button>
             </div>
             <DrawerClose className="my-2">
               <button>Close</button>

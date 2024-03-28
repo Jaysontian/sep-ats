@@ -12,7 +12,7 @@ export default async function CandidateList() {
   const data = await getData();
 
   return (
-    <div className="py-10">
+    <div className="py-10 w-full">
       <DataTable columns={columns} data={data} />
     </div>
   );

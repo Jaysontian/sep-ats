@@ -53,7 +53,7 @@ export const postRouter = createTRPCRouter({
         include: {
           applicant: {
             include: {
-              profile: true,
+              profile: true, // nested relations query
             }
           },
         },

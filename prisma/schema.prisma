@@ -24,6 +24,8 @@ model Post {
 
   content   String @db.VarChar(255)
 
+  vote      Int
+
   @@index([applicant_id]) // index this based on applicant ID
 }
 

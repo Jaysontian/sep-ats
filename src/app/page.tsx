@@ -21,7 +21,7 @@ export default async function Home() {
         <Image src={logo} alt="SEP Logo" width={55} height={35}/>
         <UserButton afterSignOutUrl="/"/>
       </nav>
-      <div className="md:w-2/3 sm:w-full flex flex-col px-4 mx-auto">
+      <div className="w-full md:w-2/3 flex flex-col px-4 mx-auto">
           <RecentScroller />
           <CandidateList />
         <Admin/>

@@ -62,8 +62,8 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-xs border-zinc-700/20 bg-zinc-700/20 active:border-zinc-700/50"
         />
-      </div>
-    <div className="rounded-md bg-zinc-700/20 border border-zinc-700/30">
+    </div>
+    <div className="rounded-md bg-zinc-700/20 border border-zinc-700/30 sm-bg-red">
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (

@@ -26,8 +26,8 @@ export default async function RecentScroller(/*{}: Props*/) {
     // This code creates an array of unique applicant posts sorted by latest update time
     const uniqApplicants = new Set();
     const uniqdata = data.filter(post => {
-        const isDup = uniqApplicants.has(post.applicant.profile?.name);
-        if (!isDup){uniqApplicants.add(post.applicant); return true}
+        const isDup = uniqApplicants.has(post.applicant.profile?.id);
+        if (!isDup){uniqApplicants.add(post.applicant.profile?.id); return true}
         return false;
     });
 
@@ -40,11 +40,12 @@ export default async function RecentScroller(/*{}: Props*/) {
 
 
     return (
-    <div>
+    <div className="w-full">
         <h2>Recents</h2>
         <Carousel
             opts={{
                 align: "start",
+                dragFree: true,
             }}
             className="w-full overflow-x-visible"
         >
