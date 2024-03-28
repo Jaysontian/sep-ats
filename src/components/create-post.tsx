@@ -30,7 +30,8 @@ export function CreatePost() {
             content: content,
             authorId: user.id,
             authorName: user.fullName!,
-            applicant: "505956202", // for testing assume it's my UID
+            applicant: "505956202", // for testing assume it's my UID,
+            vote: 0, // assume neutral post
         });
       }}
       className="flex flex-col gap-2"

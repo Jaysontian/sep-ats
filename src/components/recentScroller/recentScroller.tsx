@@ -12,14 +12,14 @@ import {
   CarouselPrevious,
 } from "~/components/ui/carousel"
 
-import CandidateBox from '../candidateList/candidateBox'
+import CandidateBoxWrapper from '../candidateList/candidateBoxWrapper'
 
 // type Props = {}
 
 export default async function RecentScroller(/*{}: Props*/) {
 
     const user = await currentUser();
-    if (!user) return null; 
+    if (!user) return null;
     const data = await api.post.getRecentByID.query({ID: user.id});
 
 
@@ -30,6 +30,10 @@ export default async function RecentScroller(/*{}: Props*/) {
         if (!isDup){uniqApplicants.add(post.applicant.profile?.id); return true}
         return false;
     });
+
+    // Another Implementation with each recent person sorted with their post recent thing
+
+    console.log("ALL UNIQUE RECENT POSTS: ", uniqdata);
 
     if (uniqdata.length == 0){
         return (<>
@@ -51,18 +55,18 @@ export default async function RecentScroller(/*{}: Props*/) {
         >
             <CarouselContent>
                 {uniqdata.map((post, index) => (
-                <CarouselItem key={index} className=" basis-1/3 md:basis-1/2 lg:basis-1/3">
-                    <div className="pr-0.2">
-                        <CandidateBox name={post.applicant.profile?.name as string} candidateID={post.applicant.uid as string}>
-                            <Card className="bg-zinc-700/50 text-white border-zinc-600 cursor-pointer hover:border-zinc-400">
-                                <CardContent className="flex flex-col items-left justify-center py-4 px-2">
-                                    <span className="text-sm font-semibold">{post.applicant.profile?.name}</span>
-                                    <span className="text-xs text-zinc-400/80 py-1 truncate">{post.content}</span>
-                                </CardContent>
-                            </Card>
-                        </CandidateBox>
-                    </div>
-                </CarouselItem>
+                    <CarouselItem key={index} className=" basis-1/3 md:basis-1/2 lg:basis-1/3">
+                        <div className="pr-0.2">
+                            <CandidateBoxWrapper name={post.applicant.profile?.name as string} candidateID={post.applicant.uid as string} userID={user.id} >
+                                <Card className="bg-zinc-700/50 text-white border-zinc-600 cursor-pointer hover:border-zinc-400">
+                                    <CardContent className="flex flex-col items-left justify-center py-4 px-2">
+                                        <span className="text-sm font-semibold">{post.applicant.profile?.name}</span>
+                                        <span className="text-xs text-zinc-400/80 py-1 truncate">{post.content}</span>
+                                    </CardContent>
+                                </Card>
+                            </CandidateBoxWrapper>
+                        </div>
+                    </CarouselItem>
                 ))}
             </CarouselContent>
             <CarouselPrevious className="hidden" />

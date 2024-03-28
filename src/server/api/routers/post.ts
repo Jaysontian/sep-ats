@@ -18,6 +18,7 @@ export const postRouter = createTRPCRouter({
       authorId: z.string().min(1),
       authorName: z.string().min(1),
       applicant: z.string().length(9),
+      vote: z.number(),
     }))
     .mutation(async ({ ctx, input }) => {
       // simulate a slow db call
@@ -29,6 +30,7 @@ export const postRouter = createTRPCRouter({
           authorId: input.authorId,
           authorName: input.authorName,
           applicant_id: input.applicant,
+          vote: input.vote,
         },
       });
     }),
@@ -42,7 +44,7 @@ export const postRouter = createTRPCRouter({
     return ctx.db.post.findMany();
   }),
 
-  getRecentByID: publicProcedure
+  getRecentByID: publicProcedure // get all recent posts by Signed in Active
     .input(z.object({ID: z.string()}))
     .query(({ ctx, input }) => {
 
@@ -60,6 +62,34 @@ export const postRouter = createTRPCRouter({
         where: {
           authorId:{
             equals: input.ID
+          }
+        }
+      });
+  }),
+  getApplicantByID: publicProcedure // get all recent posts by Signed in Active
+    .input(z.object({
+      ID: z.string(), // ID = Active Logged in ID,
+      ApplicantID: z.string(), // Queried Applicant ID
+    }))  
+    .query(({ ctx, input }) => {
+
+      return ctx.db.post.findMany({
+        orderBy:[{
+          createdAt:"desc"
+        }],
+        include: {
+          applicant: {
+            include: {
+              profile: true, // nested relations query
+            }
+          },
+        },
+        where: {
+          authorId:{
+            equals: input.ID,
+          },
+          applicant_id:{
+            equals: input.ApplicantID,
           }
         }
       });
