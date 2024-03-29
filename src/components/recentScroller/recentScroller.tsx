@@ -16,6 +16,26 @@ import CandidateBoxWrapper from '../candidateList/candidateBoxWrapper'
 
 // type Props = {}
 
+type uniqAppArray = Array<{
+  applicant: {
+    profile: {
+      id: string;
+      name: string;
+      email: string;
+    };
+    uid: string;
+  };
+  id: number;
+  createdAt: Date;
+  updatedAt: Date;
+  authorId: string;
+  authorName: string;
+  applicant_id: string;
+  content: string;
+  vote: number;
+}>
+
+
 export default async function RecentScroller(/*{}: Props*/) {
 
     const user = await currentUser();
@@ -25,22 +45,22 @@ export default async function RecentScroller(/*{}: Props*/) {
 
     // This code creates an array of unique applicant posts sorted by latest update time
     const uniqApplicants = new Set();
-    const uniqdata = data.filter(post => {
-        const isDup = uniqApplicants.has(post.applicant.profile?.id);
-        if (!isDup){uniqApplicants.add(post.applicant.profile?.id); return true}
+    const uniqdata : uniqAppArray = data.filter(post => {
+        const isDup = uniqApplicants.has(post.applicant.profile.id);
+        if (!isDup){uniqApplicants.add(post.applicant.profile.id); return true}
         return false;
     });
 
     // Another Implementation with each recent person sorted with their post recent thing
 
-    if (uniqdata.length == 0){
+    if (uniqdata == undefined || uniqdata.length == 0){
         return (<>
         <h2>History</h2>
         <p className="text-gray-500">No chat history yet. Submit an applicant review!</p>
         </>)
     }
 
-
+    if (uniqdata == null) return <div>Nothing.</div>
     return (
     <div className="w-full">
         <h2>History</h2>
@@ -55,7 +75,7 @@ export default async function RecentScroller(/*{}: Props*/) {
                 {uniqdata.map((post, index) => (
                     <CarouselItem key={index} className=" basis-1/3 md:basis-1/2 lg:basis-1/3">
                         <div className="pr-0.2">
-                            <CandidateBoxWrapper name={post.applicant?.profile.name as string} candidateID={post.applicant?.uid as string} >
+                            <CandidateBoxWrapper name={post.applicant.profile.name} candidateID={post.applicant.uid} >
                                 <Card className="bg-zinc-700/50 text-white border-zinc-600 cursor-pointer hover:border-zinc-400">
                                     <CardContent className="flex flex-col items-left justify-center py-4 px-2">
                                         <span className="text-sm font-semibold">{post.applicant.profile?.name}</span>
