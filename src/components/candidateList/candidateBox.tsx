@@ -60,7 +60,7 @@ export default function CandidateBox(props: ColumnData) {
 
   const coms : CommentArray = props.comments ? props.comments : [];
 
-  console.log("BOX PRINITNG:", coms);
+  //console.log("BOX PRINITNG:", coms);
 
   return (
     <Drawer shouldScaleBackground open={open} onOpenChange={setOpen}>

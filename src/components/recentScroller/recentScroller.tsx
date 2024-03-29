@@ -33,11 +33,9 @@ export default async function RecentScroller(/*{}: Props*/) {
 
     // Another Implementation with each recent person sorted with their post recent thing
 
-    console.log("ALL UNIQUE RECENT POSTS: ", uniqdata);
-
     if (uniqdata.length == 0){
         return (<>
-        <h2>Recents</h2>
+        <h2>History</h2>
         <p className="text-gray-500">No chat history yet. Submit an applicant review!</p>
         </>)
     }
@@ -45,7 +43,7 @@ export default async function RecentScroller(/*{}: Props*/) {
 
     return (
     <div className="w-full">
-        <h2>Recents</h2>
+        <h2>History</h2>
         <Carousel
             opts={{
                 align: "start",
@@ -57,7 +55,7 @@ export default async function RecentScroller(/*{}: Props*/) {
                 {uniqdata.map((post, index) => (
                     <CarouselItem key={index} className=" basis-1/3 md:basis-1/2 lg:basis-1/3">
                         <div className="pr-0.2">
-                            <CandidateBoxWrapper name={post.applicant.profile?.name as string} candidateID={post.applicant.uid as string} userID={user.id} >
+                            <CandidateBoxWrapper name={post.applicant?.profile.name as string} candidateID={post.applicant?.uid as string} >
                                 <Card className="bg-zinc-700/50 text-white border-zinc-600 cursor-pointer hover:border-zinc-400">
                                     <CardContent className="flex flex-col items-left justify-center py-4 px-2">
                                         <span className="text-sm font-semibold">{post.applicant.profile?.name}</span>

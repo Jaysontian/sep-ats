@@ -21,7 +21,7 @@ export async function Admin(){
                 <h2>Admin Area</h2>
                 <FetchDataButton />
 
-                <h2>Post Testing</h2>
+                {/* <h2>Post Testing</h2>
                 {latestPost ? (
 
                 <p className="truncate">Most recent update: {latestPost.content}</p>
@@ -36,7 +36,7 @@ export async function Admin(){
                     </div>
                 ))}
                 </div>
-                <CreatePost />
+                <CreatePost /> */}
             </div>
         )
     }

@@ -23,6 +23,7 @@ import {
 import { Input } from "../ui/input"
 import React from "react"
 import { Button } from "../ui/button"
+import PresentButton from "./present-button"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -98,9 +99,10 @@ export function DataTable<TData, TValue>({
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                       </TableCell>
                   ))}
-                  <CandidateBox key={row.id} name={row.getValue("name")} candidateID={row.getValue("uid")}>
+                  <CandidateBox key={row.id} name={row.getValue("name")} candidateID={row.getValue("uid")} comments={[]}>
                     <Button className="my-1.5 bg-blue-500 border-blue-400 border hover:bg-blue-600">Comment</Button>
                   </CandidateBox>
+                  <PresentButton candidateID={row.getValue("uid")} name={row.getValue("name")} />
                   {/* <Button className="m-2">Add</Button> */}
                 </TableRow>
             ))

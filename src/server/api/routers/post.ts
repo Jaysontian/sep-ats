@@ -66,7 +66,7 @@ export const postRouter = createTRPCRouter({
         }
       });
   }),
-  getApplicantByID: publicProcedure // get all recent posts by Signed in Active
+  getApplicantByID: publicProcedure // get all recent posts of an applicant by signed in active
     .input(z.object({
       ID: z.string(), // ID = Active Logged in ID,
       ApplicantID: z.string(), // Queried Applicant ID
@@ -94,4 +94,28 @@ export const postRouter = createTRPCRouter({
         }
       });
   }),
+  getAllByApplicant: publicProcedure // get all recent posts of an applicant by signed in active
+    .input(z.object({
+      ApplicantID: z.string(), // Queried Applicant ID
+    }))  
+    .query(({ ctx, input }) => {
+      return ctx.db.post.findMany({
+        orderBy:[{
+          createdAt:"desc"
+        }],
+        include: {
+          applicant: {
+            include: {
+              profile: true, // nested relations query
+            }
+          },
+        },
+        where: {
+          applicant_id:{
+            equals: input.ApplicantID,
+          }
+        }
+      });
+  }),
+
 });
