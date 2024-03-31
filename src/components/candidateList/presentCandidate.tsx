@@ -3,6 +3,8 @@ import React from 'react'
 import { Button } from "../ui/button"
 import { api } from "~/trpc/react"
 import { useUser } from "@clerk/nextjs";
+import { GoogleSpreadsheet } from 'google-spreadsheet';
+import ApplicationSection from './applicationSection';
 
 // interface PresentButtonProps {
 //   candidateID: string;
@@ -33,6 +35,7 @@ export default function PresentCandidate({close, candidateID, name} : PresentCan
         refetchOnReconnect: true,
         refetchOnWindowFocus: false,
     });
+    
 
     const pos : CommentArray = [];
     const neg : CommentArray = [];
@@ -68,19 +71,20 @@ export default function PresentCandidate({close, candidateID, name} : PresentCan
     }
 
     return (
-        <div className="fixed bg-black/75 w-full h-full top-0 left-0 flex justify-center" onClickCapture={close}>
-            <div className="bg-zinc-900 w-screen m-12 rounded-lg border border-zinc-700 p-4">
+        <div className="fixed bg-black/75 w-full h-full top-0 left-0 flex justify-center">
+            <div className="bg-zinc-900 w-screen m-12 rounded-lg border border-zinc-700 p-4 px-10">
                 <div className="mx-auto w-1/2 text-center">
                     <h1 className="text-xl font-bold my-2">{name}</h1>
                     <div>UID: {candidateID}</div>
+                    <ApplicationSection candidateID={candidateID} />
                 </div>
-                <div className="px-10">
-                    <h1 className="text-lg font-semibold py-4 ">Comments</h1>
+                <div>
+                    <h1 className="text-lg font-semibold py-4">Comments</h1>
                     <div className="w-full flex gap-4">
                         <CommentSection />
                     </div>
                 </div>
-                <button onClick={close}>Close</button>
+                <Button onClick={close}>Close</Button>
             </div>
         </div>
     );

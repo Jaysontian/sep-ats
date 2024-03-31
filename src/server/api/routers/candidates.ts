@@ -102,9 +102,42 @@ export const candidateRouter = createTRPCRouter({
       });
 
       return newApplicants;
-      // const doc = new GoogleSpreadsheet('1Haqj7suQ38DgTXnLkum9Wi8csYXcbWxeOs1910gJd0k', {apiKey: process.env.GOOGLE_API_KEY!});
-      // await doc.loadInfo(); // loads document properties and worksheets
-      // console.log("DOCUMENT TITLE: " + doc.title);
-      // return doc.title;
+    }),
+
+    getFormApplicationData: publicProcedure.input(z.object({ uid: z.string() })).query(async ({input}) => {
+        const doc = new GoogleSpreadsheet('1VSrx0O4Sa4i7atdKYpxnjFIKu_Ifs_w6cSTRmTzwsKY', {apiKey: process.env.GOOGLE_API_KEY!});
+        await doc.loadInfo(); // loads document properties and worksheets
+        console.log("DOCUMENT TITLE: " + doc.title);
+
+        const sheet = doc.sheetsByIndex[0]
+        const rows = await sheet?.getRows();
+
+        console.log("UID OF ThE PERSON: ", input.uid);
+
+        let appData = {
+          submitted: false,
+        }
+
+        rows?.forEach((item) => {
+          if (item._rawData[2] == input.uid){ // if we found an application with UID that matches the queried applicant UID
+            console.log('FOUND SOMETHING');
+            appData = {
+              submitted: true,
+              time: item._rawData[0],
+              name: item._rawData[1],
+              uid: item._rawData[2],
+              phone: item._rawData[3],
+              major: item._rawData[4],
+              portfolio: item._rawData[5],
+              year: item._rawData[6],
+              grad: item._rawData[7],
+              prompt1: item._rawData[8],
+              prompt2: item._rawData[9],
+              prompt3: item._rawData[10],
+            }
+          }
+        });
+
+        return appData;
     }),
 });
