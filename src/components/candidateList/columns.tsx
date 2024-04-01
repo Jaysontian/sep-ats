@@ -30,4 +30,10 @@ export const columns: ColumnDef<Payment>[] = [
     header: "UID",
     enableHiding: true,
   },
+  {
+    id: "image",
+    accessorKey: "profile.image",
+    header: "Image",
+    enableHiding: true,
+  },
 ]

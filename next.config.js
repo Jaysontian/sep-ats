@@ -6,6 +6,9 @@ await import("./src/env.js");
 
 /** @type {import("next").NextConfig} */
 const config = {
+    images: {
+        domains: ['i.imgur.com'],
+    },
     eslint: {
     // Warning: This allows production builds to successfully complete even if
     // your project has ESLint errors.
@@ -13,7 +16,8 @@ const config = {
     },
     typescript: {
         ignoreBuildErrors: true,
-    }
-    };
+    },
+
+};
 
 export default config;

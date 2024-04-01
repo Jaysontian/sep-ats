@@ -35,7 +35,7 @@ export function DataTable<TData, TValue>({
   data,
 }: DataTableProps<TData, TValue>) {
 
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
 
   const table = useReactTable({
     data,
@@ -95,15 +95,17 @@ export function DataTable<TData, TValue>({
                   className="border-none text-left"
                 >
                   {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id}>
+                      <TableCell key={cell.id} className="max-w-8 truncate">
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                       </TableCell>
                   ))}
-                  <CandidateBox key={row.id} name={row.getValue("name")} candidateID={row.getValue("uid")} comments={[]}>
-                    <Button className="my-1.5 bg-blue-500 border-blue-400 border hover:bg-blue-600">Comment</Button>
-                  </CandidateBox>
-                  <PresentButton candidateID={row.getValue("uid")} name={row.getValue("name")} />
-                  {/* <Button className="m-2">Add</Button> */}
+                  <div className="flex justify-end gap-4 px-4">
+                    <CandidateBox key={row.id} name={row.getValue("name")} candidateID={row.getValue("uid")} image={row.getValue("image")} comments={[]}>
+                      <Button className="my-1.5 bg-blue-500 border-blue-400 border hover:bg-blue-600">Comment</Button>
+                    </CandidateBox>
+                    <PresentButton candidateID={row.getValue("uid")} name={row.getValue("name")} />
+                    {/* <Button className="m-2">Add</Button> */}
+                  </div>
                 </TableRow>
             ))
           ) : (

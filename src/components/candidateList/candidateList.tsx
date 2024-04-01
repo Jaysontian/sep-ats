@@ -1,7 +1,8 @@
-import { type Payment, columns } from "./columns";
+import { type Payment, columns, mobileColumns } from "./columns";
 import { DataTable } from "./data-table";
 import { api } from "~/trpc/server";
 import RowContext from "./RowContext";
+
 
 async function getData(): Promise<Payment[]> {
   const allApps = await api.candidate.getAllApps.query();

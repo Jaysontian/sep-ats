@@ -14,6 +14,7 @@ export interface AirtableCandidate {
   uid: number,
   name: string,
   email: string,
+  image: string,
 }
 
 async function getAirTableApplicants() : Promise<AirtableCandidate[]> {
@@ -24,14 +25,26 @@ async function getAirTableApplicants() : Promise<AirtableCandidate[]> {
       base('Attendance').select({
         // Filters or options go here
       }).eachPage((records, fetchNextPage) => {
+        
         records.forEach(record => {
-          const applicantData : AirtableCandidate = {
-            uid: record.get('UID') as number,
-            name: record.get('Name') as string,
-            email: record.get('Email') as string,
-          };
-          newApplicants.push(applicantData);
+          if (record.get('UID') && record.get('UID') != undefined){
+            let img = "";
+            if(!record.get("Photo") || record.get("Photo") == null || record.get("Photo") == undefined){
+              img = "https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg";
+            } else {
+              img = record.get("Photo") as string;
+            }
+            console.log("Printing photo: ", img);
+            const applicantData : AirtableCandidate = {
+              uid: record.get('UID') as number,
+              name: record.get('Name') as string,
+              email: record.get('Email') as string,
+              image: img,
+            };
+            newApplicants.push(applicantData);
+          }
         });
+        console.log("We are done");
         fetchNextPage();
       }, err => {
         if (err) {
@@ -75,6 +88,7 @@ export const candidateRouter = createTRPCRouter({
     const promises = [];
 
     for (const applicant of newApplicants) {
+      console.log(applicant);
       const promise = ctx.db.candidate.upsert({
         where: {
           uid: applicant.uid.toString()
@@ -85,7 +99,8 @@ export const candidateRouter = createTRPCRouter({
           profile: {
             create: {
               name: applicant.name,
-              email: applicant.email
+              email: applicant.email,
+              image: applicant.image,
             }
           }
         },
