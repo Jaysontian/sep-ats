@@ -71,7 +71,12 @@ export default function CandidateBox(props: ColumnData) {
         <div className="w-full text-left md:w-2/5 mx-auto">
           <DrawerHeader className="pb-0">
             <DrawerTitle className="my-1 text-center">{props.name}</DrawerTitle>
-            <Image src={props.image} alt="profile" width="100" height="100" style={{objectFit:"cover"}} className="min-w-100 min-h-100 object-cover rounded-lg mx-auto"></Image>
+            {props.image != "" ? 
+                <div className="w-[150px] h-[150px] relative rounded-md overflow-hidden mx-auto my-4">
+                  <Image src={props.image} alt="profile" fill className="object-cover"></Image>
+                </div> 
+                : <></>
+            }
             {coms.map((c, i) => (
               <div key={i} className={cn('border-[1.5px] p-1.5 text-[14px] rounded-md bg-blue-200 border-blue-300', {
                   'bg-red-200 border-red-300' : (c.vote == -1), 

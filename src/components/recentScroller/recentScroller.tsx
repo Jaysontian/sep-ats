@@ -13,7 +13,7 @@ import {
 } from "~/components/ui/carousel"
 
 import CandidateBoxWrapper from '../candidateList/candidateBoxWrapper'
-
+import Image from 'next/image'
 // type Props = {}
 
 type uniqAppArray = Array<{
@@ -73,13 +73,16 @@ export default async function RecentScroller(/*{}: Props*/) {
         >
             <CarouselContent>
                 {uniqdata.map((post, index) => (
-                    <CarouselItem key={index} className=" basis-1/3 md:basis-1/2 lg:basis-1/3">
+                    <CarouselItem key={index} className=" basis-1/3 md:basis-1/4 lg:basis-1/5">
                         <div className="pr-0.2">
                             <CandidateBoxWrapper name={post.applicant.profile.name} candidateID={post.applicant.uid} >
                                 <Card className="bg-zinc-700/50 text-white border-zinc-600 cursor-pointer hover:border-zinc-400">
-                                    <CardContent className="flex flex-col items-left justify-center py-4 px-2">
-                                        <span className="text-sm font-semibold">{post.applicant.profile?.name}</span>
-                                        <span className="text-xs text-zinc-400/80 py-1 truncate">{post.content}</span>
+                                    <CardContent className="flex flex-col items-left justify-center py-2 px-2">
+                                        <div className="w-full h-[130px] relative rounded-md overflow-hidden mb-4">
+                                            <Image src={post.applicant.profile.image} alt="profile" fill className="object-cover"></Image>
+                                        </div>
+                                        <span className="text-sm font-semibold truncate text-center">{post.applicant.profile?.name}</span>
+                                        {/* <span className="text-xs text-zinc-400/80 py-1 truncate">{post.content}</span> */}
                                     </CardContent>
                                 </Card>
                             </CandidateBoxWrapper>

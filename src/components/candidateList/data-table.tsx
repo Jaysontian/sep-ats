@@ -47,7 +47,7 @@ export function DataTable<TData, TValue>({
       columnFilters,
     },
     initialState: {
-      columnVisibility: { "uid": false },
+      columnVisibility: { "uid": false, "image": false },
     },
   });
 
@@ -95,7 +95,7 @@ export function DataTable<TData, TValue>({
                   className="border-none text-left"
                 >
                   {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id} className="max-w-8 truncate">
+                      <TableCell key={cell.id} className="max-w-32 truncate">
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                       </TableCell>
                   ))}

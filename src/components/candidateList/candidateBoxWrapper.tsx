@@ -32,7 +32,7 @@ export default async function CandidateBoxWrapper(props: ColumnData) {
 
   return (
     <>
-      <CandidateBox name={props.name} candidateID={props.candidateID} comments={comments}>
+      <CandidateBox name={props.name} candidateID={props.candidateID} comments={comments} image="">
         {props.children}
       </CandidateBox>
     </>

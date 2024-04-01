@@ -1,4 +1,4 @@
-import { type Payment, columns, mobileColumns } from "./columns";
+import { type Payment, columns } from "./columns";
 import { DataTable } from "./data-table";
 import { api } from "~/trpc/server";
 import RowContext from "./RowContext";

@@ -30,7 +30,7 @@ async function getAirTableApplicants() : Promise<AirtableCandidate[]> {
           if (record.get('UID') && record.get('UID') != undefined){
             let img = "";
             if(!record.get("Photo") || record.get("Photo") == null || record.get("Photo") == undefined){
-              img = "https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg";
+              img = "https://i.imgur.com/nz6BOUP.png";
             } else {
               img = record.get("Photo") as string;
             }
