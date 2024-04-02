@@ -7,7 +7,7 @@ await import("./src/env.js");
 /** @type {import("next").NextConfig} */
 const config = {
     images: {
-        domains: ['i.imgur.com', 'imgbb.com'],
+        domains: ['i.imgur.com', 'imgbb.com', 'ibb.co'],
     },
     eslint: {
     // Warning: This allows production builds to successfully complete even if
