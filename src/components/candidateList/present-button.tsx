@@ -27,7 +27,7 @@ export default function PresentButton({candidateID, name} : PresentButtonProps){
 
     if (!isLoaded || !user) return null;
 
-    if (!permittedEmails.includes(user?.emailAddresses[0]?.emailAddress)) return <></>
+    // if (!permittedEmails.includes(user?.emailAddresses[0]?.emailAddress)) return <></>
 
     if (modal) {
         return <PresentCandidate close={click} candidateID={candidateID} name={name} />
