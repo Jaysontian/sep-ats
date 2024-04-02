@@ -25,6 +25,9 @@ import React from "react"
 import { Button } from "../ui/button"
 import PresentButton from "./present-button"
 
+import { MessageSquare } from "lucide-react"
+
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
@@ -54,7 +57,7 @@ export function DataTable<TData, TValue>({
   return (
     <>
     <div className="flex flex-col justify-between pb-4">
-        <h2>Candidates</h2>
+        <h2>Candidates ({table.getRowModel().rows.length})</h2>
         <Input
           placeholder="Search"
           value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
@@ -99,11 +102,11 @@ export function DataTable<TData, TValue>({
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                       </TableCell>
                   ))}
-                  <div className="flex justify-end gap-4 px-4">
+                  <div className="flex justify-end gap-4 px-4 items-center">
                     <CandidateBox key={row.id} name={row.getValue("name")} candidateID={row.getValue("uid")} image={row.getValue("image")} comments={[]}>
-                      <Button className="my-1.5 bg-blue-500 border-blue-400 border hover:bg-blue-600">Comment</Button>
+                      <Button className="my-1.5 px-6 bg-blue-500 border-blue-400 border hover:bg-blue-600"><MessageSquare width={20} /></Button>
                     </CandidateBox>
-                    <PresentButton candidateID={row.getValue("uid")} name={row.getValue("name")} />
+                    <PresentButton candidateID={row.getValue("uid")} name={row.getValue("name")} imgsrc={row.getValue("image")}/>
                     {/* <Button className="m-2">Add</Button> */}
                   </div>
                 </TableRow>

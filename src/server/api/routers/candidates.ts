@@ -93,7 +93,15 @@ export const candidateRouter = createTRPCRouter({
         where: {
           uid: applicant.uid.toString()
         },
-        update: {},
+        update: {
+          profile: {
+            update: {
+              name: applicant.name,
+              email: applicant.email,
+              image: applicant.image,
+            },
+          }
+        },
         create: {
           uid: applicant.uid.toString(),
           profile: {
@@ -154,5 +162,28 @@ export const candidateRouter = createTRPCRouter({
         });
 
         return appData;
+    }),
+
+    getApplicantSummaries: publicProcedure.query(async ({ctx}) => {
+        const doc = new GoogleSpreadsheet('1GfB-9hUpBm-DwztQWSCkGpkMn0aQPqZ8PSn2NHF7fK4', {apiKey: process.env.GOOGLE_API_KEY!});
+        await doc.loadInfo(); // loads document properties and worksheets
+        console.log("DOCUMENT TITLE: " + doc.title);
+
+        const sheet = doc.sheetsByIndex[0]
+        const rows = await sheet?.getRows();
+
+        const data = {};
+
+        rows?.forEach((item) => {
+          data[item._rawData[1]] = {
+            name: item._rawData[0],
+            next: item._rawData[2],
+            socl: item._rawData[3],
+            prof: item._rawData[4],
+            misc: item._rawData[5],
+          }
+        });
+
+        return data;
     }),
 });

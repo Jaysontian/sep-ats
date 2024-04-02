@@ -13,6 +13,8 @@ async function getData(): Promise<Payment[]> {
 export default async function CandidateList() {
   const data = await getData();
 
+  console.log(data);
+
   return (
     <div className="py-10 w-full" >
       <DataTable columns={columns} data={data} />

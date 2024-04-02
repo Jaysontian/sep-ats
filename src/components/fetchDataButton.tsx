@@ -13,7 +13,7 @@ export default function FetchDataButton(){
         onSuccess: () => {
             router.refresh();
             setLoading(false);
-            setMsg("Successfully added new applicants");
+            setMsg("Successfully synced data with the Airtable. Please reload to get new information.");
         },
     });
 
@@ -22,10 +22,10 @@ export default function FetchDataButton(){
             <Button onClick={() => {
                 setLoading(true);
                 fetchNewApps.mutate();
-            }}>
-                {loading ? "Fetching..." : "Fetch New Data"}
+            }} disabled={loading ? true : false}>
+                {loading ? "Syncing with Airtable..." : "Sync Data"}
             </Button>
-            <p className='py-4'>{msg}</p>
+            <p className='py-4 text-green-400 text-sm'>{msg}</p>
         </>
     )
 }

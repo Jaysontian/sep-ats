@@ -22,7 +22,7 @@ model Post {
   applicant_id String    // UID of the applicant
   applicant Candidate @relation(fields: [applicant_id], references: [uid])
 
-  content   String @db.VarChar(255)
+  content   String @db.VarChar(5000)
 
   vote      Int
 

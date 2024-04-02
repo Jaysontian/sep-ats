@@ -22,7 +22,7 @@ export default function ApplicationSection({candidateID} : AppSectionProps){
             <div>Year: {app.data.year}</div>
             <div>Major(s): {app.data.major}</div>
             <div>Submission Time: {app.data.time}</div>
-            <div>Resume: <a href={app.data.portfolio} className="underline text-blue-500">Link</a></div>
+            <div>Resume: <a href={app.data.portfolio} target="_blank" className="underline text-blue-500">Link</a></div>
             {/* <div>Prompt 1: {app.data.prompt1}</div> */}
         </div>
     )

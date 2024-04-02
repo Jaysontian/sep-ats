@@ -26,6 +26,7 @@ type ColumnData = {
   name: string;
   candidateID: string;
   image: string;
+  nextStepString: string;
   comments: {content: string; vote: number;}[];
 };
 
@@ -70,7 +71,9 @@ export default function CandidateBox(props: ColumnData) {
       <DrawerContent className="sm:mx-0 md:mx-12 bg-white outline-none">
         <div className="w-full text-left md:w-2/5 mx-auto">
           <DrawerHeader className="pb-0">
-            <DrawerTitle className="my-1 text-center">{props.name}</DrawerTitle>
+            <DrawerTitle className="my-2 text-center">{props.name}</DrawerTitle>
+            {props.nextStepString != "" && props.nextStepString != undefined  ? <div className='text-sm text-red-500'><b>Dig Deeper: </b>{props.nextStepString}</div> : <></>}
+            <br></br>
             {props.image != "" ? 
                 <div className="w-[150px] h-[150px] relative rounded-md overflow-hidden mx-auto my-4">
                   <Image src={props.image} alt="profile" fill className="object-cover"></Image>
@@ -78,7 +81,7 @@ export default function CandidateBox(props: ColumnData) {
                 : <></>
             }
             {coms.map((c, i) => (
-              <div key={i} className={cn('border-[1.5px] p-1.5 text-[14px] rounded-md bg-blue-200 border-blue-300', {
+              <div key={i} className={cn('border-[1.5px] p-1.5 text-[14px] rounded-md max-h-[300px] overflow-y-scroll overflow-ellipsis bg-blue-200 border-blue-300', {
                   'bg-red-200 border-red-300' : (c.vote == -1), 
                   'bg-green-200 border-green-300' : (c.vote == 1),
                 })}>
