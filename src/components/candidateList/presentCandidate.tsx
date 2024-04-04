@@ -74,14 +74,14 @@ export default function PresentCandidate({close, candidateID, name, image} : Pre
     return (
         <div className="fixed bg-black/75 w-full h-full top-0 left-0 flex justify-center z-50">
             <div className="bg-zinc-900 w-screen m-2 md:m-6 rounded-lg border border-zinc-700 p-2 md:p-4 px-4 md:px-10 overflow-y-scroll">
-                <div className="mx-auto w-full md:w-2/3 text-center flex gap-4 justify-between">
-                    <div>
+                <div className="mx-auto w-full text-center flex gap-4 justify-between">
+                    <div className="w-2/3">
                         <h1 className="text-xl font-bold my-2">{name}</h1>
                         <div>UID: {candidateID}</div>
                         <ApplicationSection candidateID={candidateID} />
                     </div>
                     {image != "" && image != undefined ? 
-                    <div className="w-1/2 h-[250px] relative rounded-md overflow-hidden mb-4 border border-white/25 cursor-pointer" onClick={()=>{window.open(image);}}>
+                    <div className="w-1/3 h-[250px] relative rounded-md overflow-hidden mb-4 border border-white/25 cursor-pointer" onClick={()=>{window.open(image);}}>
                         <Image src={image} alt="profile" fill className="object-cover"></Image>
                     </div> : <></>}
                 </div>

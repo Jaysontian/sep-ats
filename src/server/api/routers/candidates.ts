@@ -157,6 +157,8 @@ export const candidateRouter = createTRPCRouter({
               prompt1: item._rawData[8],
               prompt2: item._rawData[9],
               prompt3: item._rawData[10],
+              file1: item._rawData[11],
+              link1: item._rawData[12],
             }
           }
         });
